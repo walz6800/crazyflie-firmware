@@ -262,3 +262,34 @@ config DEFRAG_STORAGE_ON_STARTUP
         fragmentation level.
 
 endmenu
+
+menu "UART5 Position Sender"
+
+config UART5_POSITION_SENDER
+    bool "Enable UART5 position sender"
+    default n
+    depends on ESTIMATOR_KALMAN_ENABLE
+    help
+        Enable sending real-time position data (from lighthouse/loco/Kalman estimator)
+        over UART5. Uses PC12=TX, PD2=RX.
+
+        The position data is sent as text in the format:
+          POS:x,y,z\r\n
+        where x, y, z are in meters with 3 decimal places.
+
+config UART5_POSITION_SENDER_BAUDRATE
+    int "UART5 baudrate for position sender"
+    default 115200
+    depends on UART5_POSITION_SENDER
+    help
+        Set the baudrate of the UART5 position sender output.
+
+config UART5_POSITION_SENDER_PERIOD_MS
+    int "UART5 position sender period (ms)"
+    default 50
+    depends on UART5_POSITION_SENDER
+    help
+        Set the period in milliseconds between position data transmissions.
+        Default 50ms = 20Hz update rate.
+
+endmenu

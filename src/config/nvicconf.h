@@ -91,6 +91,7 @@
 #define NVIC_UART1_DMA_PRI    10
 #define NVIC_UART2_PRI        6
 #define NVIC_UART2_DMA_PRI    10
+#define NVIC_UART5_PRI        10
 #define NVIC_WS2812_PRI       13
 #define NVIC_BMI088_SPI_PRI   7
 #define NVIC_USB_BSP_PRI      10

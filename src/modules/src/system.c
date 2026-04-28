@@ -70,6 +70,9 @@
 #include "app.h"
 #include "static_mem.h"
 #include "peer_localization.h"
+#ifdef CONFIG_UART5_POSITION_SENDER
+#include "uart5_pos.h"
+#endif
 #include "cfassert.h"
 #include "i2cdev.h"
 #include "autoconf.h"
@@ -198,6 +201,11 @@ void systemTask(void *arg)
 
   #ifdef CONFIG_ESTIMATOR_UKF_ENABLE
   errorEstimatorUkfTaskInit();
+  #endif
+
+  #ifdef CONFIG_UART5_POSITION_SENDER
+  uart5PositionSenderInit(CONFIG_UART5_POSITION_SENDER_BAUDRATE,
+                          CONFIG_UART5_POSITION_SENDER_PERIOD_MS);
   #endif
 
   // Enabling incoming syslink messages to be added to the queue.

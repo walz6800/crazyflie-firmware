@@ -48,6 +48,7 @@ obj-y += system.o
 obj-$(CONFIG_DECK_LOCO) += tdoaEngineInstance.o
 obj-y += vcp_esc_passthrough.o
 obj-y += worker.o
+obj-$(CONFIG_UART5_POSITION_SENDER) += uart5_pos.o
 obj-y += i2c_dfu.o
 
 # Sub folders
