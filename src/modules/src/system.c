@@ -211,8 +211,12 @@ void systemTask(void *arg)
   deckInit();
 
   #ifdef CONFIG_UART5_POSITION_SENDER
+  DEBUG_PRINT("UART5 POS sender init: baud=%d, period=%d ms\n",
+              CONFIG_UART5_POSITION_SENDER_BAUDRATE,
+              CONFIG_UART5_POSITION_SENDER_PERIOD_MS);
   uart5PositionSenderInit(CONFIG_UART5_POSITION_SENDER_BAUDRATE,
                           CONFIG_UART5_POSITION_SENDER_PERIOD_MS);
+  DEBUG_PRINT("UART5 POS sender init done, isInit=%d\n", uart5PositionSenderTest());
   #endif
 
   estimator = deckGetRequiredEstimator();
