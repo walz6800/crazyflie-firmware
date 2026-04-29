@@ -27,8 +27,14 @@ SRCARCH := stm32f4
 
 ARCH_CFLAGS += -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -g3
 ARCH_CFLAGS += -fno-math-errno -DARM_MATH_CM4 -D__FPU_PRESENT=1 -mfp16-format=ieee
-ARCH_CFLAGS += -Wno-array-bounds -Wno-stringop-overread
+ARCH_CFLAGS += -Wno-array-bounds
+# -Wno-stringop-overread and -Wno-stringop-overflow require GCC >= 11
+ifeq ($(shell $(CC) -Wno-stringop-overread -E - </dev/null >/dev/null 2>&1; echo $$?),0)
+ARCH_CFLAGS += -Wno-stringop-overread
+endif
+ifeq ($(shell $(CC) -Wno-stringop-overflow -E - </dev/null >/dev/null 2>&1; echo $$?),0)
 ARCH_CFLAGS += -Wno-stringop-overflow
+endif
 ARCH_CFLAGS += -DSTM32F4XX -DSTM32F40_41xxx -DHSE_VALUE=8000000 -DUSE_STDPERIPH_DRIVER
 
 FREERTOS = $(srctree)/vendor/FreeRTOS

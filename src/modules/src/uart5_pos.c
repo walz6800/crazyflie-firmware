@@ -61,7 +61,7 @@ static void uart5PosTaskFcn(void* param)
     estimatorKalmanGetEstimatedPos(&pos);
 
     // Format: POS:x,y,z\r\n  (example: POS:1.234,-0.567,0.890)
-    uart5Printf("POS:%.3f,%.3f,%.3f\r\n", pos.x, pos.y, pos.z);
+    uart5Printf("POS:%.3f,%.3f,%.3f\r\n", (double)pos.x, (double)pos.y, (double)pos.z);
   }
 }
 
@@ -93,7 +93,7 @@ void uart5SendPosition(void)
   pos.z = 0.0f;
   estimatorKalmanGetEstimatedPos(&pos);
 
-  uart5Printf("POS:%.3f,%.3f,%.3f\r\n", pos.x, pos.y, pos.z);
+  uart5Printf("POS:%.3f,%.3f,%.3f\r\n", (double)pos.x, (double)pos.y, (double)pos.z);
 }
 
 bool uart5PositionSenderTest(void)
