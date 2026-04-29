@@ -47,6 +47,9 @@ static void uart5PosTaskFcn(void* param)
   uint32_t lastWakeTime = xTaskGetTickCount();
   const TickType_t periodTicks = M2T(sendPeriodMs);
 
+  // DEBUG: Send startup message to verify task is running
+  uart5Printf("UART5POS_TASK_START\r\n");
+
   while (1) {
     vTaskDelayUntil(&lastWakeTime, periodTicks);
 

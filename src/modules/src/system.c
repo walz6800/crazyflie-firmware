@@ -203,17 +203,18 @@ void systemTask(void *arg)
   errorEstimatorUkfTaskInit();
   #endif
 
-  #ifdef CONFIG_UART5_POSITION_SENDER
-  uart5PositionSenderInit(CONFIG_UART5_POSITION_SENDER_BAUDRATE,
-                          CONFIG_UART5_POSITION_SENDER_PERIOD_MS);
-  #endif
-
   // Enabling incoming syslink messages to be added to the queue.
   // This should probably be done later, but deckInit() takes a long time if this is done later.
   uartslkEnableIncoming();
 
   memInit();
   deckInit();
+
+  #ifdef CONFIG_UART5_POSITION_SENDER
+  uart5PositionSenderInit(CONFIG_UART5_POSITION_SENDER_BAUDRATE,
+                          CONFIG_UART5_POSITION_SENDER_PERIOD_MS);
+  #endif
+
   estimator = deckGetRequiredEstimator();
   stabilizerInit(estimator);
   if (deckGetRequiredLowInterferenceRadioMode() && platformConfigPhysicalLayoutAntennasAreClose())

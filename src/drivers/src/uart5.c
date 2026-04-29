@@ -101,6 +101,15 @@ void uart5Init(const uint32_t baudrate)
   USART_Cmd(UART5_TYPE, ENABLE);
 
   isInit = true;
+
+  /* DEBUG: Send a test string to verify UART5 hardware */
+  {
+    const char test[] = "\r\nUART5_INIT_OK\r\n";
+    for (uint32_t i = 0; i < sizeof(test) - 1; i++) {
+      while (!(UART5_TYPE->SR & USART_FLAG_TXE));
+      UART5_TYPE->DR = test[i];
+    }
+  }
 }
 
 bool uart5Test(void)
