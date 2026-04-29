@@ -39,6 +39,7 @@
 #include "cfassert.h"
 #include "nvicconf.h"
 #include "static_mem.h"
+#include "led.h"
 
 #define QUEUE_LENGTH 64
 static xQueueHandle uart5queue;
@@ -102,14 +103,21 @@ void uart5Init(const uint32_t baudrate)
 
   isInit = true;
 
-  /* DEBUG: Send a test string to verify UART5 hardware */
+  /* DEBUG: Blink LED_BLUE_L (PC5) off for ~200ms to confirm uart5Init is called.
+   * If LED stays off permanently → TXE flag never set (UART5 clock issue).
+   * If LED never changes → uart5Init was never called (config/init issue).
+   * If LED blinks → init called and TX works, problem is elsewhere. */
+  ledSet(LED_BLUE_L, 0);
   {
     const char test[] = "\r\nUART5_INIT_OK\r\n";
     for (uint32_t i = 0; i < sizeof(test) - 1; i++) {
       while (!(UART5_TYPE->SR & USART_FLAG_TXE));
       UART5_TYPE->DR = test[i];
     }
+    while (!(UART5_TYPE->SR & USART_FLAG_TC));
   }
+  vTaskDelay(M2T(200));
+  ledSet(LED_BLUE_L, 1);
 }
 
 bool uart5Test(void)
