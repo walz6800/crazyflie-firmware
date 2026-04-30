@@ -2,7 +2,24 @@
   "permissions": {
     "allow": [
       "Bash(git submodule *)",
-      "Bash(make cf2_defconfig)"
+      "Bash(make cf2_defconfig)",
+      "Bash(cc --version)",
+      "Bash(cmd.exe //c \"where cc\")",
+      "Bash(powershell.exe -Command \"Get-Command cc -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Source\")",
+      "Bash(powershell.exe -Command \"Get-ChildItem 'C:\\\\Users\\\\Administrator\\\\AppData\\\\Local\\\\Programs' -Recurse -Depth 2 -Filter 'claude*' -ErrorAction SilentlyContinue | Select-Object FullName\")",
+      "Bash(powershell.exe -Command \"Get-ChildItem 'C:\\\\Program Files' -Recurse -Depth 2 -Filter 'cc.exe' -ErrorAction SilentlyContinue | Select-Object FullName\")",
+      "Bash(powershell.exe -Command \"Get-ChildItem 'C:\\\\Users\\\\Administrator\\\\AppData\\\\Local' -Recurse -Depth 2 -Filter 'cc.exe' -ErrorAction SilentlyContinue | Select-Object FullName\")",
+      "Bash(npm config *)",
+      "Bash(ls \"$\\(npm config get prefix\\)/\")",
+      "Bash(ls \"$\\(npm config get prefix\\)/node_modules/@anthropic-ai/claude-code/\")",
+      "Bash(powershell.exe -Command \"Get-ChildItem 'D:\\\\Program Files\\\\Nodejs\\\\node_global' -Filter '*claude*' | Select-Object Name\")",
+      "Bash(powershell.exe -Command \"Get-ChildItem 'D:\\\\Program Files\\\\Nodejs\\\\node_global' -Filter 'cc*' | Select-Object Name\")",
+      "Bash(claude --version)",
+      "Bash(claude.cmd --version)",
+      "Bash(cmd.exe //c \"dir /AL C:\\\\Users\\\\Administrator\\\\.claude 2>nul\")",
+      "Bash(powershell.exe -Command \"\\(Get-Item 'C:\\\\Users\\\\Administrator\\\\.claude' -ErrorAction SilentlyContinue\\).LinkType\")",
+      "Bash(touch /d/.claude/.write_test)",
+      "Bash(rm /d/.claude/.write_test)"
     ]
   }
 }
